@@ -21,5 +21,13 @@ Republican:
 * http://time.com/4247496/republican-debate-transcript-eleventh-detroit-fox-news/
 * http://time.com/4255181/republican-debate-transcript-twelfth-cnn-miami/
 
-http://newshour-tc.pbs.org/newshour/wp-content/uploads/2016/02/PBS-NewsHour-Dem-Debate-%E2%80%93-FULL-Rush-Transcript.pdf
-
+Democrats:
+* http://time.com/4072553/democratic-debate-transcript-primetime-cnn/
+* http://time.com/4113434/transcript-read-the-full-text-of-the-second-democratic-debate/
+* http://time.com/4156144/democratic-debate-third-new-hampshire-abc-transcript/
+* http://time.com/4183952/democratic-debate-full-text-hillary-clinton-bernie-sanders/
+* http://time.com/4208869/democratic-debate-transcript-full-text-new-hampshire-fifth/
+* http://time.com/4218812/democratic-debate-transcript-full-text-milwaukee-sixth/
+* http://time.com/4249183/democratic-debate-flint-full-text-transcript-seventh/
+* http://time.com/4253623/democratic-debate-eighth-miami-transcript-full-text/
+* https://www.washingtonpost.com/news/the-fix/wp/2016/03/09/transcript-the-post-univision-democratic-debate-annotated/
