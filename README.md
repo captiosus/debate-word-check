@@ -31,3 +31,15 @@ Democrats:
 * http://time.com/4249183/democratic-debate-flint-full-text-transcript-seventh/
 * http://time.com/4253623/democratic-debate-eighth-miami-transcript-full-text/
 * https://www.washingtonpost.com/news/the-fix/wp/2016/03/09/transcript-the-post-univision-democratic-debate-annotated/
+
+These transcripts are parsed with the parse.py file. In order to be parsed, the transcript required an "(END)" to be placed at end of transcript and each speaker to be marked with their name, a colon, and a space. 
+For example, "SANDERS: Judy, one area very briefly..."
+The parsing file required nltk stopwords to be installed.
+The file must be ran with the command line arguments shown below.
+python parse.py <transcript> <party> <number of words> <store?>
+transcript: File name of transcript. Must be stored in raw_files folder.
+party: Political party of debate.
+number of words: Number of words to return. For example, 5 would return
+top 5 most used words.
+store?: Whether or not to store in results.json. true if desired, false if not.
+
