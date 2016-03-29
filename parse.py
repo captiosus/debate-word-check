@@ -51,13 +51,15 @@ def main(argv):
     stop = stopwords.words('english')
     stop.append("us")
     stop.append("it's")
+    stop.append("you're")
+    stop.append("they're")
+    stop.append("mr")
     stop.append("i'm")
     stop.append("i've")
     stop.append("we've")
     stop.append("got")
     stop.append("get")
     stop.append("go")
-    stop.append("going")
     stop.append("that's")
     stop.append("we're")
     stop.append("we'll")
@@ -105,31 +107,47 @@ def main(argv):
                                             #  If not, records it.
                                             else:
                                                 sanders[word] = 1
+                                            if word in total:
+                                                total[word] += 1
+                                            else:
+                                                total[word] = 1
                                         elif speaker == "CLINTON":
                                             if word in clinton:
                                                 clinton[word] += 1
                                             else:
                                                 clinton[word] = 1
+                                            if word in total:
+                                                total[word] += 1
+                                            else:
+                                                total[word] = 1
                                     elif argv[1] == "Republican":
                                         if speaker == "TRUMP":
                                             if word in trump:
                                                 trump[word] += 1
                                             else:
                                                 trump[word] = 1
+                                            if word in total:
+                                                total[word] += 1
+                                            else:
+                                                total[word] = 1
                                         elif speaker == "KASICH":
                                             if word in kasich:
                                                 kasich[word] += 1
                                             else:
                                                 kasich[word] = 1
+                                            if word in total:
+                                                total[word] += 1
+                                            else:
+                                                total[word] = 1
                                         elif speaker == "CRUZ":
                                             if word in cruz:
                                                 cruz[word] += 1
                                             else:
                                                 cruz[word] = 1
-                                    if word in total:
-                                        total[word] += 1
-                                    else:
-                                        total[word] = 1
+                                            if word in total:
+                                                total[word] += 1
+                                            else:
+                                                total[word] = 1
                 #  Resets speech and adds next line.
                 speech = ""
                 speech += line
@@ -249,8 +267,9 @@ def main(argv):
 
 if __name__ == "__main__":
     if (sys.argv[1]=="-all"):
-        for x in range(int(sys.argv[2])):
+        for x in range(8):
             main(["Dem"+str(x+1), "Democrat", "20", "true"])
+        for x in range(12):
             main(["Rep"+str(x+1), "Republican", "20", "true"])
     else:
         main(sys.argv[1:])
