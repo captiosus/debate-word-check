@@ -8,7 +8,7 @@ var foo = d3.scale.linear()
 var entries = d3.entries(data.Total.Total);
 
 var top20 = []; //Top 20 most used words
-var previousMax = 1000;
+var previousMax = Number.MAX_VALUE;
 for (var i = 0 ; i < 20 ; i++){
     var maxVal = 0;
     for (var j = 0 ; j < entries.length ; j++){
@@ -19,6 +19,7 @@ for (var i = 0 ; i < 20 ; i++){
     top20.push(maxVal);
     previousMax = maxVal;
 }
+console.log(top20);
 
 var savage = function() {
   d3.select("body").append("svg")
