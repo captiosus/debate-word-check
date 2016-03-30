@@ -6,25 +6,32 @@ var foo = d3.scale.linear()
     .domain([0,500])
     .range([0,500]);
 var entries = d3.entries(data.Total.Total);
-var top20 = [];
-for (var i = 0 ; i < entries.length ; i++){
-    top20.push(entries[i]);
-}
-console.log(top20);
 
-//var added = [[]];
+var top20 = []; //Top 20 most used words
+var previousMax = 1000;
+for (var i = 0 ; i < 20 ; i++){
+    var maxVal = 0;
+    for (var j = 0 ; j < entries.length ; j++){
+	if (entries[j].value > maxVal && entries[j].value < previousMax){
+	    maxVal = entries[j].value;
+	}
+    }
+    top20.push(maxVal);
+    previousMax = maxVal;
+}
+
 var x1 = -1, y1 = -1, r1 = 0, x2 = -1, y2 = -1, r2 = 0;
 
 var savage = d3.select("body").append("svg")
     .attr("width", 1280)
     .attr("height", 720)
   .selectAll("circle")
-    .data(entries)
+    .data(top20)
       .enter()
     .append("circle")
 //Setting the x-coordinate
         .attr("cx", function(d){
-	    var rad = d.value/10;
+	    var rad = d/10;
 	    if(x1 < 0 && y1 < 0){
 		x1 = 640;
 		y1 = 360;
@@ -48,7 +55,7 @@ var savage = d3.select("body").append("svg")
 	})
 //Setting the y-coordinate
         .attr("cy", function(d){
-	    var rad = d.value/10;
+	    var rad = d/10;
 	    if(x1 < 0 && y1 < 0){
 		x1 = 640;
 		y1 = 360;
@@ -70,7 +77,7 @@ var savage = d3.select("body").append("svg")
 	    y2 = y3;
 	    return y3;
         })
-        .attr("r", function(d){ return d.value/10; })
+        .attr("r", function(d){ return d/10; })
         .style("fill", total);
 console.log(savage);
 
