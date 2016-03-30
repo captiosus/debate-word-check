@@ -42,7 +42,9 @@ console.log(nodes);
 //The tooltip pop-up that appears on mouseover
 var tip = d3.tip()
     .attr("class", "d3-tip")
-    .html(function(d) { return d.value; });
+    .html(function(d) { 
+	console.log(d);
+	return d.name + ": " + d.value; });
 
 var savage = d3.select("body").append("svg")
     .attr("width", 1280)
@@ -51,9 +53,10 @@ var savage = d3.select("body").append("svg")
     .data(nodes)
       .enter()
     .append("circle")
-      .attr("r", function(d){ return d.r; })
-      .attr("cx", function(d){ return d.x; })
-      .attr("cy", function(d){ return d.y; })
+    .attr("r", function(d){ return d.r; })
+    .attr("cx", function(d){ return d.x; })
+    .attr("cy", function(d){ return d.y; })
+    .attr("stroke", function(d){ return "#000000"; })
 //Add mousehover interactivity
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
