@@ -21,26 +21,40 @@ for (var i = 0 ; i < 20 ; i++){
 }
 console.log(top20);
 
-var savage = function() {
-  d3.select("body").append("svg")
+var svg = d3.select("body")
+    .append("svg")
     .attr("width", 1280)
-    .attr("height", 720)
-  .selectAll("circle")
-    .data(top20)
-      .enter()
-    .append("circle")
-//Setting the x-coordinate
-    .attr("cx", function(d){
-	return 0;
-    })
-//Setting the y-coordinate
-    .attr("cy", function(d){
-	return 0;
-    })
-    .attr("r", function(d){ return d/10; })
-    .style("fill", total);
-  position();
+    .attr("height", 720);
+
+var tip = d3.tip()
+    .attr("class", "d3-tip")
+    .html(function(d) { return d; });
+
+var savage = function() {
+    d3.select("body")
+	.append("svg")
+	.attr("width", 1280)
+	.attr("height", 720)
+	.selectAll("circle")
+	.data(top20)
+	.enter()
+	.append("circle")
+    //Setting the x-coordinate
+	.attr("cx", function(d){
+	    return 0;
+	})
+    //Setting the y-coordinate
+	.attr("cy", function(d){
+	    return 0;
+	})
+	.on("mouseover", tip.show)
+	.on("mouseout", tip.hide)
+	.attr("r", function(d){ return d/10; })
+	.style("fill", total);
+    position();
 };
+
+svg.call(tip);
 
 function position() {
   var circles = document.getElementsByTagName("circle");
