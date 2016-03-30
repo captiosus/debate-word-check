@@ -30,13 +30,13 @@ var savage = function() {
     .append("circle")
 //Setting the x-coordinate
     .attr("cx", function(d){
-      return 0;
+	return 0;
     })
 //Setting the y-coordinate
     .attr("cy", function(d){
-	    return 0;
+	return 0;
     })
-    .attr("r", function(d){ return d.value/10; })
+    .attr("r", function(d){ return d/10; })
     .style("fill", total);
   position();
 };
