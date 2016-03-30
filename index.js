@@ -51,7 +51,8 @@ var savage = d3.select("body").append("svg")
     .append("circle")
     .attr("r", function(d){ return d.r; })
     .attr("cx", function(d){ return d.x; })
-    .attr("cy", function(d){ return d.y; });
+    .attr("cy", function(d){ return d.y; })
+    .style("background", "linear-gradient(to right, blue 40%, red 60%);");
 
 // //Setting the x-coordinate
 //     .attr("cx", function(d){
