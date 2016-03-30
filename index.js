@@ -10,12 +10,10 @@ var top20 = [];
 for (var i = 0 ; i < entries.length ; i++){
     top20.push(entries[i]);
 }
-console.log(top20);
 
 //var added = [[]];
-var x1 = -1, y1 = -1, r1 = 0, x2 = -1, y2 = -1, r2 = 0;
-
-var savage = d3.select("body").append("svg")
+var savage = function() {
+  d3.select("body").append("svg")
     .attr("width", 1280)
     .attr("height", 720)
   .selectAll("circle")
@@ -23,67 +21,66 @@ var savage = d3.select("body").append("svg")
       .enter()
     .append("circle")
 //Setting the x-coordinate
-        .attr("cx", function(d){
-	    var rad = d.value/10;
-	    if(x1 < 0 && y1 < 0){
-		x1 = 640;
-		y1 = 360;
-		r1 = rad;
-		return x1;
-	    } else if (x2 < 0 && y2 < 0){
-		x2 = 640+rad;
-		y2 = 360;
-		r2 = rad;
-		return x2;
-	    }
-	    //Law of Cosines
-	    var C = Math.acos((Math.pow(rad+r1,2)+Math.pow(r1+r2,2)-Math.pow(rad+r2,2))/(2*(rad+r1)*(r1+r2)))
-	    var x3 = x1 + (rad+r1)*Math.cos(C);
-	    var y3 = y1 + (rad+r1)*Math.sin(C);
-	    x1 = x2;
-	    y1 = y2;
-	    x2 = x3;
-	    y2 = y3;
-	    return x3;
-	})
+    .attr("cx", function(d){
+      return 0;
+    })
 //Setting the y-coordinate
-        .attr("cy", function(d){
-	    var rad = d.value/10;
-	    if(x1 < 0 && y1 < 0){
-		x1 = 640;
-		y1 = 360;
-		r1 = rad;
-		return y1;
-	    } else if (x2 < 0 && y2 < 0){
-		x2 = 640+rad;
-		y2 = 360;
-		r2 = rad;
-		return y2;
-	    }
-	    //Law of Cosines
-	    var C = Math.acos((Math.pow(rad+r1,2)+Math.pow(r1+r2,2)-Math.pow(rad+r2,2))/(2*(rad+r1)*(r1+r2)))
-	    var x3 = x1 + (rad+r1)*Math.cos(C);
-	    var y3 = y1 + (rad+r1)*Math.sin(C);
-	    x1 = x2;
-	    y1 = y2;
-	    x2 = x3;
-	    y2 = y3;
-	    return y3;
-        })
-        .attr("r", function(d){ return d.value/10; })
-        .style("fill", total);
-console.log(savage);
+    .attr("cy", function(d){
+	    return 0;
+    })
+    .attr("r", function(d){ return d.value/10; })
+    .style("fill", total);
+  position();
+};
+
+function position() {
+  var circles = document.getElementsByTagName("circle");
+  var x1 = -1, y1 = -1, r1 = 0, x2 = -1, y2 = -1, r2 = 0;
+  var rad;
+  var circle;
+  for (var x = 0; x < circles.length; x++) {
+    circle = circles[x];
+    rad = parseFloat(circle.getAttribute("r"));
+    if(x1 < 0 && y1 < 0){
+      x1 = 640;
+      y1 = 360;
+      r1 = rad;
+      circle.setAttribute("cx", x1);
+      circle.setAttribute("cy", y1);
+    } else if (x2 < 0 && y2 < 0){
+      x2 = 640+rad;
+      y2 = 360;
+      r2 = rad;
+      circle.setAttribute("cx", x2);
+      circle.setAttribute("cy", y2);
+    } else {
+      var C = Math.acos((Math.pow(rad+r1,2)+Math.pow(r1+r2,2)-Math.pow(rad+r2,2))/(2*(rad+r1)*(r1+r2)));
+      var x3 = x1 + (rad+r1)*Math.cos(C);
+      var y3 = y1 + (rad+r1)*Math.sin(C);
+      circle.setAttribute("cx", x3);
+      circle.setAttribute("cy", y3);
+      x1 = x2;
+      y1 = y2;
+      x2 = x3;
+      y2 = y3;
+      r1 = r2;
+      r2 = rad;
+    }
+  }
+}
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+savage();
 
 /*
 	    var rad = d.value/10;
 	    curx = getRandomInt(rad, 1280-rad);
 	    cury = getRandomInt(rad, 720-rad);
 	    for (var i = 1 ; i < added.length ; i++) {
-		var ar = added[i][0]; 
+		var ar = added[i][0];
 		var ax = added[i][1];
 		var ay = added[i][2];
 		var notX = Math.abs(ax-curx) <= Math.abs(ar+rad);
@@ -113,43 +110,43 @@ var color = function(i){
     }
 };
 
-data = [{"label":"Bernie", "value":30}, 
+data = [{"label":"Bernie", "value":30},
         {"label":"Hillary", "value":70}];
 
 var piechart = function(cx,cy){
     var savage = d3.select("body")
-        .append("svg:svg")              
-        .data([data])                   
-          .attr("width", w)           
+        .append("svg:svg")
+        .data([data])
+          .attr("width", w)
           .attr("height", h)
-        .append("svg:g")                
-          .attr("transform", "translate(" + cx + "," + cy + ")");   
+        .append("svg:g")
+          .attr("transform", "translate(" + cx + "," + cy + ")");
 
-    var arc = d3.svg.arc()              
+    var arc = d3.svg.arc()
 	.outerRadius(r);
 
-    var pie = d3.layout.pie()          
-	.value(function(d) { return d.value; });    
+    var pie = d3.layout.pie()
+	.value(function(d) { return d.value; });
 
-    var arcs = savage.selectAll("g.slice")    
-	.data(pie)                          
-	.enter()                            
-	  .append("svg:g")                
-            .attr("class", "slice");    
+    var arcs = savage.selectAll("g.slice")
+	.data(pie)
+	.enter()
+	  .append("svg:g")
+            .attr("class", "slice");
 
     arcs.append("svg:path")
-	.attr("fill", function(d, i) { return color(i); } ) 
-	.attr("d", arc);    
-    
-    arcs.append("svg:text")                                     
-	.attr("transform", function(d) {                    
+	.attr("fill", function(d, i) { return color(i); } )
+	.attr("d", arc);
+
+    arcs.append("svg:text")
+	.attr("transform", function(d) {
             d.innerRadius = 0;
             d.outerRadius = r;
-            return "translate(" + arc.centroid(d) + ")";        
+            return "translate(" + arc.centroid(d) + ")";
 	})
-	.attr("text-anchor", "middle")                          
-	.text(function(d, i) { return data[i].label; });   
-};     
+	.attr("text-anchor", "middle")
+	.text(function(d, i) { return data[i].label; });
+};
 
 piechart(250,250);
 */
