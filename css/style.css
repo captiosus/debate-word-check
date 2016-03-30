@@ -24,3 +24,46 @@
   top: 100%;
   left: 0;
 }
+svg {
+  padding-top: 50px;
+  display: inline-block;
+}
+.detail-container {
+  width: 300px;
+  display: inline-block;
+  float: left;
+  padding-top: 60px;
+  padding-left: 20px;
+}
+.detail {
+  list-style: none;
+  font-size: 20px;
+}
+.detail li {
+  margin-top: 20px;
+}
+#word {
+  font-size: 24px;
+  font-weight: bold;
+}
+.key {
+  height: 16px;
+  width: 16px;
+  display: inline-block;
+  margin-right: 10px;
+}
+.sanders {
+  background-color: green;
+}
+.clinton {
+  background-color: blue;
+}
+.trump {
+  background-color: red;
+}
+.kasich {
+  background-color: purple;
+}
+.cruz {
+  background-color: orange;
+}
