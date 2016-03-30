@@ -7,13 +7,10 @@ var fakedata = {
       ]
     };
 
-console.log(data);
-var total = "#77FF77";
-var dem = "#7777FF";
-var rep = "#FF7777";
-var foo = d3.scale.linear()
-    .domain([0,500])
-    .range([0,500]);
+//console.log(data);
+
+var dem = "#6666FF";
+var rep = "#FF6666";
 var entries = d3.entries(data.Total.Total);
 
 var top20 = {"children":[]};
@@ -42,6 +39,7 @@ var nodes = pack.nodes(top20),
     view;
 console.log(nodes);
 
+//The tooltip pop-up that appears on mouseover
 var tip = d3.tip()
     .attr("class", "d3-tip")
     .html(function(d) { return d.value; });
@@ -53,12 +51,38 @@ var savage = d3.select("body").append("svg")
     .data(nodes)
       .enter()
     .append("circle")
-    .attr("r", function(d){ return d.r; })
-    .attr("cx", function(d){ return d.x; })
-    .attr("cy", function(d){ return d.y; })
-    .style("background", "linear-gradient(to right, blue 40%, red 60%);")
-    .on("mouseover", tip.show)
-    .on("mouseout", tip.hide);
+      .attr("r", function(d){ return d.r; })
+      .attr("cx", function(d){ return d.x; })
+      .attr("cy", function(d){ return d.y; })
+//Add mousehover interactivity
+      .on("mouseover", tip.show)
+      .on("mouseout", tip.hide)
+//Giving each circle its unique gradient
+      .attr("fill", function(d){
+	  var gradient = d3.select("svg").append("defs")
+	      .append("linearGradient");
+	  //Giving each gradient a unique ID
+	  var index = d.r;
+	  index = index.toString();
+	  var str = "gradientASDF";
+	  var res = str.replace("ASDF", index);
+	  
+	  gradient.attr("id", res)
+	      .attr("x1", "0%")
+	      .attr("y1", "50%")
+	      .attr("x2", "100%")
+	      .attr("y2", "50%");
+	  //The democratic slice
+	  gradient.append("stop")
+	      .attr("offset", "40%")
+	      .attr("stop-color", dem);
+	  //The republican slice
+	  gradient.append("stop")
+	      .attr("offset", "60%")
+	      .attr("stop-color", rep);
+	  //Points the circle's "fill" attribute to this gradient 
+	  return "url(#"+res+")"
+      });
 
 savage.call(tip);
 
@@ -125,11 +149,6 @@ function position() {
   }
 }
 */
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 
 /*
 	    var rad = d.value/10;
