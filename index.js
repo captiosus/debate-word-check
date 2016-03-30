@@ -16,7 +16,8 @@ var entries = d3.entries(data.Total.Total);
 
 var top20 = {"children":[]};
 //Top 20 most used words
-var previousMax = 1000;
+var previousMax = Number.MAX_VALUE;
+
 for (var i = 0 ; i < 20 ; i++){
     var maxVal = 0;
     for (var j = 0 ; j < entries.length ; j++){
@@ -31,6 +32,7 @@ for (var i = 0 ; i < 20 ; i++){
     top20.children.push(temp);
     previousMax = maxVal;
 }
+console.log(top20);
 
 var pack = d3.layout.pack()
   .size([600, 600]);
