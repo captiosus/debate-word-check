@@ -72,7 +72,6 @@ var savage = d3.select("body").append("svg")
     .attr("r", function(d){ return d.r; })
     .attr("cx", function(d){ return d.x; })
     .attr("cy", function(d){ return d.y; })
-    .attr("stroke", function(d){ return "#000000"; })
 //Add mousehover interactivity
       .on("mouseover", tip.show)
       .on("mouseout", tip.hide)
