@@ -57,7 +57,7 @@ function position() {
       circle.setAttribute("cx", x1);
       circle.setAttribute("cy", y1);
     } else if (x2 < 0 && y2 < 0){
-      x2 = 640+rad;
+      x2 = 640+r1+rad;
       y2 = 360;
       r2 = rad;
       circle.setAttribute("cx", x2);
