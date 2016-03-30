@@ -3,25 +3,101 @@ var data = {"Republican": {"Cruz": {"money": 12, "focus": 11, "years": 11, "sole
 console.log(data);
 var total = "#77FF77";
 var foo = d3.scale.linear()
-    .domain([0,700])
-    .range([0,1920]);
+    .domain([0,500])
+    .range([0,500]);
+var entries = d3.entries(data.Total.Total);
+var top20 = [];
+for (var i = 0 ; i < entries.length ; i++){
+    top20.push(entries[i]);
+}
+console.log(top20);
+
+//var added = [[]];
+var x1 = -1, y1 = -1, r1 = 0, x2 = -1, y2 = -1, r2 = 0;
 
 var savage = d3.select("body").append("svg")
-    .attr("width", 500)
-    .attr("height", 500)
+    .attr("width", 1280)
+    .attr("height", 720)
   .selectAll("circle")
-    .data(data.Total.Total)
+    .data(entries)
       .enter()
     .append("circle")
-        .attr("cx", getRandomInt(0,500))
-        .attr("cy", getRandomInt(0,500))
-        .attr("r", function(d){ return d; })
+//Setting the x-coordinate
+        .attr("cx", function(d){
+	    var rad = d.value/10;
+	    if(x1 < 0 && y1 < 0){
+		x1 = 640;
+		y1 = 360;
+		r1 = rad;
+		return x1;
+	    } else if (x2 < 0 && y2 < 0){
+		x2 = 640+rad;
+		y2 = 360;
+		r2 = rad;
+		return x2;
+	    }
+	    //Law of Cosines
+	    var C = Math.acos((Math.pow(rad+r1,2)+Math.pow(r1+r2,2)-Math.pow(rad+r2,2))/(2*(rad+r1)*(r1+r2)))
+	    var x3 = x1 + (rad+r1)*Math.cos(C);
+	    var y3 = y1 + (rad+r1)*Math.sin(C);
+	    x1 = x2;
+	    y1 = y2;
+	    x2 = x3;
+	    y2 = y3;
+	    return x3;
+	})
+//Setting the y-coordinate
+        .attr("cy", function(d){
+	    var rad = d.value/10;
+	    if(x1 < 0 && y1 < 0){
+		x1 = 640;
+		y1 = 360;
+		r1 = rad;
+		return y1;
+	    } else if (x2 < 0 && y2 < 0){
+		x2 = 640+rad;
+		y2 = 360;
+		r2 = rad;
+		return y2;
+	    }
+	    //Law of Cosines
+	    var C = Math.acos((Math.pow(rad+r1,2)+Math.pow(r1+r2,2)-Math.pow(rad+r2,2))/(2*(rad+r1)*(r1+r2)))
+	    var x3 = x1 + (rad+r1)*Math.cos(C);
+	    var y3 = y1 + (rad+r1)*Math.sin(C);
+	    x1 = x2;
+	    y1 = y2;
+	    x2 = x3;
+	    y2 = y3;
+	    return y3;
+        })
+        .attr("r", function(d){ return d.value/10; })
         .style("fill", total);
 console.log(savage);
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+/*
+	    var rad = d.value/10;
+	    curx = getRandomInt(rad, 1280-rad);
+	    cury = getRandomInt(rad, 720-rad);
+	    for (var i = 1 ; i < added.length ; i++) {
+		var ar = added[i][0]; 
+		var ax = added[i][1];
+		var ay = added[i][2];
+		var notX = Math.abs(ax-curx) <= Math.abs(ar+rad);
+		var notY = Math.abs(ay-cury) <= Math.abs(ar+rad);
+		if(notX && notY){
+		    if(notX){ curx = getRandomInt(rad, 1280-rad); }
+		    if(notY){ cury = getRandomInt(rad, 720-rad); }
+		    i = 1;
+		}
+	    }
+	    added.push([rad,curx,cury]);
+	    console.log(added);
+	    return curx;
+	    */
 
 /*
 var w = 500, h = 500;
