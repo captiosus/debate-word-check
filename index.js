@@ -2,6 +2,8 @@ var data = {"Republican": {"Cruz": {"money": 12, "focus": 11, "years": 11, "sole
 
 console.log(data);
 var total = "#77FF77";
+var dem = "#7777FF";
+var rep = "#FF7777";
 var foo = d3.scale.linear()
     .domain([0,500])
     .range([0,500]);
@@ -38,7 +40,7 @@ var savage = function() {
 	return 0;
     })
     .attr("r", function(d){ return d/10; })
-    .style("fill", total);
+    .style("background", "linear-gradient(to right, blue 40%, red 60%);");
   position();
 };
 
