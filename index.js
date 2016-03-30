@@ -42,6 +42,10 @@ var nodes = pack.nodes(top20),
     view;
 console.log(nodes);
 
+var tip = d3.tip()
+    .attr("class", "d3-tip")
+    .html(function(d) { return d.value; });
+
 var savage = d3.select("body").append("svg")
     .attr("width", 1280)
     .attr("height", 720)
@@ -52,7 +56,11 @@ var savage = d3.select("body").append("svg")
     .attr("r", function(d){ return d.r; })
     .attr("cx", function(d){ return d.x; })
     .attr("cy", function(d){ return d.y; })
-    .style("background", "linear-gradient(to right, blue 40%, red 60%);");
+    .style("background", "linear-gradient(to right, blue 40%, red 60%);")
+    .on("mouseover", tip.show)
+    .on("mouseout", tip.hide);
+
+savage.call(tip);
 
 // //Setting the x-coordinate
 //     .attr("cx", function(d){
@@ -78,6 +86,8 @@ var savage = d3.select("body").append("svg")
     .style("background", "linear-gradient(to right, blue 40%, red 60%);");
   position();
 };
+
+svg.call(tip);
 
 function position() {
   var circles = document.getElementsByTagName("circle");
